@@ -1,0 +1,25 @@
+service: serverless-test
+
+provider:
+  name: aws
+
+plugins:
+  - serverless-s3-sync
+  - '../index'
+
+custom:
+  s3Sync:
+    - bucketNameKey: S3
+      localDir: resources
+  s3Downloads:
+    bucketNameKey: S3
+    localDir: downloads
+
+resources:
+  Resources:
+    S3:
+      Type: AWS::S3::Bucket
+
+  Outputs:
+    S3:
+      Value: !Ref S3

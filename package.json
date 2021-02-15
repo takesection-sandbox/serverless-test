@@ -1,0 +1,25 @@
+{
+  "name": "serverless-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takesection/serverless-test"
+  },
+  "keywords": [
+    "serverless"
+  ],
+  "author": "Shigeki Shoji",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.28",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.1.5"
+  }
+}
