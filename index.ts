@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 class ServerlessTest {
 
@@ -44,12 +45,26 @@ class ServerlessTest {
             const filePath: string = this.servicePath + "/" + s3Downloads.localDir + "/" + key;
             console.log(key + ' to ' + filePath);
 
-            await provider.request("S3", "getObject", {
-                Bucket: bucketName,
-                Key: key
-            }).then((o: any) => {
-                fs.writeFileSync(filePath, o.Body);
+            const dirname: string = path.dirname(key);
+            console.log(dirname);
+            var dir: string = this.servicePath + "/" + s3Downloads.localDir;
+            dirname.split('/').forEach((d: string) => {
+                try {
+                    dir = dir + "/" + d;
+                    fs.mkdirSync(dir);
+                    console.log("mkdir: " + dir);
+                } catch (err) {
+                    // ignore
+                }
             });
+            if (!key.endsWith('/')) {
+                await provider.request("S3", "getObject", {
+                    Bucket: bucketName,
+                    Key: key
+                }).then((o: any) => {
+                    fs.writeFileSync(filePath, o.Body);
+                });
+            }
         })
     }
 }
